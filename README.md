@@ -28,8 +28,8 @@ The API we want you to connect to is https://kanye.rest/
 * Above features are to be tested with Feature tests
 
 ## Developer
-Name: `<your name>` <br/>
-Email: `<your email>`<br/>
+Name: `Tomas Carrasco` <br/>
+Email: `tomascone13@gmail.com`<br/>
 
 ## Instructions
 ### DO NOT START A NEW LARAVEL APP, USE THIS BOILERPLATE INSTEAD !!

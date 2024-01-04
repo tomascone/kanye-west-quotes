@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiProfileController;
+use App\Http\Controllers\ApiQuoteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    // Profile
     Route::get('/profile', [ApiProfileController::class, 'index']);
     Route::put('/profile', [ApiProfileController::class, 'update']);
+
+    // Quotes
+    Route::get('/quotes/{num?}', [ApiQuoteController::class, 'index']);
+    Route::post('/quotes/add_to_fav', [ApiQuoteController::class, 'store']);
 });

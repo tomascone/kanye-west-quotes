@@ -27,7 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [ApiProfileController::class, 'update']);
 
     // Quotes
-    Route::get('/quotes/{num?}', [ApiQuoteController::class, 'index']);
+    Route::get('/quotes/{num?}', [ApiQuoteController::class, 'index'])
+        ->middleware('throttle:quotesApi');
     Route::post('/quotes/add_to_fav', [ApiQuoteController::class, 'store']);
 
     // Favourites

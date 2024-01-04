@@ -4,6 +4,7 @@ import store from '@/store'
 const Login = () => import('@/components/Login.vue')
 const Register = () => import('@/components/Register.vue')
 const UpdateProfile = () => import('@/components/updateProfile.vue')
+const FavouritesQuotes = () => import('@/components/FavouritesQuotes.vue')
 /* Guest Component */
 /* Layouts */
 const DahboardLayout = () => import('@/components/layouts/Default.vue')
@@ -51,6 +52,14 @@ const routes = [
                 component: UpdateProfile,
                 meta: {
                     title: `Update Profile`
+                }
+            },
+            {
+                name: "favouritesQuotes",
+                path: '/favourites-quotes',
+                component: FavouritesQuotes,
+                meta: {
+                    title: `Favourites Quotes`
                 }
             }
         ]

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiFavouritesQuotesController;
 use App\Http\Controllers\ApiProfileController;
 use App\Http\Controllers\ApiQuoteController;
 use Illuminate\Http\Request;
@@ -28,4 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // Quotes
     Route::get('/quotes/{num?}', [ApiQuoteController::class, 'index']);
     Route::post('/quotes/add_to_fav', [ApiQuoteController::class, 'store']);
+
+    // Favourites
+    Route::get('/favourites', [ApiFavouritesQuotesController::class, 'index']);
+    Route::delete('/favourites/{id}', [ApiFavouritesQuotesController::class, 'destroy']);
 });

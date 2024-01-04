@@ -8,7 +8,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <router-link :to="{name:'dashboard'}" class="nav-link">Home <span class="sr-only"></span></router-link>
+                            <router-link :to="{name:'dashboard'}" class="nav-link">Quotes <span class="sr-only"></span></router-link>
                         </li>
                     </ul>
                     <div class="d-flex">
@@ -19,6 +19,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                     <router-link :to="{name:'updateProfile'}" class="dropdown-item">Update Profile</router-link>
+                                    <router-link :to="{name:'favouritesQuotes'}" class="dropdown-item">Favourites Quotes</router-link>
                                     <a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a>
                                 </div>
                             </li>

@@ -24,7 +24,10 @@ class ApiQuoteController extends Controller
             $quotes[] = $response->body();
         }
 
-        return $quotes;
+        return response()->json([
+            'status' => true,
+            'quotes' => $quotes
+        ], 200);
     }
 
     /**
@@ -45,10 +48,15 @@ class ApiQuoteController extends Controller
      */
     public function store(Request $request)
     {
-        return FavouriteQuote::firstOrCreate([
+        $favQuote = FavouriteQuote::firstOrCreate([
             'quote'     => $request->quote,
             'user_id'   => $request->user()->id,
         ]);
+
+        return response()->json([
+            'status' => true,
+            'favQuote' => $favQuote
+        ], 200);
     }
 
     /**

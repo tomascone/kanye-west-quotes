@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiFavouritesQuotesController;
 use App\Http\Controllers\ApiProfileController;
 use App\Http\Controllers\ApiQuoteController;
 use App\Http\Controllers\ApiUserController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Profile
     Route::get('/profile/{id}', [ApiProfileController::class, 'show']);
-    // Route::put('/profile', [ApiProfileController::class, 'update']);
     Route::put('/profile/{id}', [ApiProfileController::class, 'update']);
 
     // Quotes
@@ -41,3 +41,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/favourites', [ApiFavouritesQuotesController::class, 'index']);
     Route::delete('/favourites/{id}', [ApiFavouritesQuotesController::class, 'destroy']);
 });
+
+Route::post('/login', [AuthController::class, 'login']);

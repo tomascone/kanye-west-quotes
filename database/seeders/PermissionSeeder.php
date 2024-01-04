@@ -20,7 +20,6 @@ class PermissionSeeder extends Seeder
         $permissions = [
             'fav list',
             'fav delete',
-            'fav restore',
             'user list',
             'user delete',
         ];

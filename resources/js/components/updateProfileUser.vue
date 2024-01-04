@@ -70,8 +70,8 @@ export default {
             this.processing = true
             await axios.get('/sanctum/csrf-cookie')
             await axios.get(`/api/profile/${this.$route.params.id}`).then(response=>{
-                this.user.name = response?.data?.name
-                this.user.email = response?.data?.email
+                this.user.name = response?.data?.user?.name
+                this.user.email = response?.data?.user?.email
             }).catch(({response})=>{
                 if(response.status===422){
                     this.validationErrors = response.data.errors

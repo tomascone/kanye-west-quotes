@@ -56,7 +56,7 @@ export default {
 
             await axios.get('/sanctum/csrf-cookie')
             await axios.get('/api/users').then(response=>{
-                this.users = response.data
+                this.users = response.data.users
             }).catch(({response})=>{
                 if(response.status===422){
                     this.validationErrors = response.data.errors

@@ -14,7 +14,10 @@ class ApiFavouritesQuotesController extends Controller
      */
     public function index()
     {
-        return auth()->user()->quotes;
+        return response()->json([
+            'status' => true,
+            'quotes' => auth()->user()->quotes
+        ], 200);
     }
 
     /**
@@ -80,6 +83,15 @@ class ApiFavouritesQuotesController extends Controller
      */
     public function destroy($id)
     {
-        return auth()->user()->isSuperAdmin() ? FavouriteQuote::find($id)->delete() : auth()->user()->quotes()->where('id', $id)->delete();
+        if (auth()->user()->isSuperAdmin()) {
+            $result = FavouriteQuote::find($id)->delete();
+        } else {
+            $result = auth()->user()->quotes()->where('id', $id)->delete();
+        }
+
+        return response()->json([
+            'status' => true,
+            'result' => $result
+        ], 200);
     }
 }

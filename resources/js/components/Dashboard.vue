@@ -59,7 +59,7 @@ export default {
 
             await axios.get('/sanctum/csrf-cookie')
             await axios.get('/api/quotes/5').then(response=>{
-                this.quotes = response.data
+                this.quotes = response.data.quotes
 
                 const filteredList = this.quotes.filter((q) => q.id !== id).map((q) => { return q});
 

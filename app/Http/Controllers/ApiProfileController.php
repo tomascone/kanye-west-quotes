@@ -17,7 +17,7 @@ class ApiProfileController extends Controller
      */
     public function index(Request $request)
     {
-        return $request->user()->only(['name', 'email']);
+        //
     }
 
     /**
@@ -49,7 +49,16 @@ class ApiProfileController extends Controller
      */
     public function show($id)
     {
-        return auth()->user()->isSuperAdmin() || $id == auth()->user()->id ? User::find($id)->only(['name', 'email']) : abort(403, 'Unauthorized action.');
+        if (auth()->user()->isSuperAdmin() || $id == auth()->user()->id) {
+            $user = User::find($id)->only(['name', 'email']);
+
+            return response()->json([
+                'status'    => true,
+                'user'      => $user
+            ], 200);
+        }
+
+        return abort(403, 'Unauthorized action.');
     }
 
     /**
@@ -71,11 +80,20 @@ class ApiProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request)
     {
-        return auth()->user()->isSuperAdmin() || request()->id == auth()->user()->id ? User::find(request()->id)->update([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => $request->password ? Hash::make($request->password) : $request->user()->password,
-        ]) : abort(403, 'Unauthorized action.');
+        if (auth()->user()->isSuperAdmin() || request()->id == auth()->user()->id ) {
+            $user = User::find(request()->id)->update([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => $request->password ? Hash::make($request->password) : $request->user()->password,
+            ]);
+
+            return response()->json([
+                'status'    => true,
+                'user'      => $user
+            ], 200);
+        }
+
+        return abort(403, 'Unauthorized action.');
     }
 
     /**

@@ -20,7 +20,10 @@ class ApiUserController extends Controller
      */
     public function index()
     {
-        return User::with('quotes')->where('id', '!=', auth()->user()->id)->get();
+        return response()->json([
+            'status' => true,
+            'users' => User::with('quotes')->where('id', '!=', auth()->user()->id)->get()
+        ], 200);
     }
 
     /**
@@ -86,6 +89,9 @@ class ApiUserController extends Controller
      */
     public function destroy($id)
     {
-        return User::find($id)->delete();
+        return response()->json([
+            'status' => true,
+            'result' => User::find($id)->delete()
+        ], 200);
     }
 }

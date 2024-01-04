@@ -40,7 +40,7 @@ export default {
 
             await axios.get('/sanctum/csrf-cookie')
             await axios.get('/api/favourites').then(response=>{
-                this.quotes = response.data
+                this.quotes = response.data.quotes
             }).catch(({response})=>{
                 if(response.status===422){
                     this.validationErrors = response.data.errors

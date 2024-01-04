@@ -12,6 +12,7 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import Router from '@/router'
 import store from '@/store'
+import LaravelPermissionToVueJS from 'laravel-permission-to-vuejs'
  
 const app = createApp({})
 
@@ -22,4 +23,5 @@ const options = {
 app.use(Router)
 app.use(store)
 app.use(Toast, options);
+app.use(LaravelPermissionToVueJS);
 app.mount('#app')

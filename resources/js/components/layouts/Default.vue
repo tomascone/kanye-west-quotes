@@ -10,6 +10,9 @@
                         <li class="nav-item">
                             <router-link :to="{name:'dashboard'}" class="nav-link">Quotes <span class="sr-only"></span></router-link>
                         </li>
+                        <li class="nav-item" v-if="is('Superadmin')">
+                            <router-link :to="{name:'users'}" class="nav-link">Manage Users <span class="sr-only"></span></router-link>
+                        </li>
                     </ul>
                     <div class="d-flex">
                         <ul class="navbar-nav">
@@ -18,7 +21,7 @@
                                     {{ user.name }}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                    <router-link :to="{name:'updateProfile'}" class="dropdown-item">Update Profile</router-link>
+                                    <router-link :to="{name:'updateProfileUser', params: { id: user.id }}" class="dropdown-item">Update Profile</router-link>
                                     <router-link :to="{name:'favouritesQuotes'}" class="dropdown-item">Favourites Quotes</router-link>
                                     <a class="dropdown-item" href="javascript:void(0)" @click="logout">Logout</a>
                                 </div>

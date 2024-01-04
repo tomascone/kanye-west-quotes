@@ -4,11 +4,17 @@
             <div class="col-12">
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <h3>Quotes</h3>
+                        <h3>Favourites Quotes</h3>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item d-flex flex-column" v-for="(quote, id) in quotes">
+                            <li class="list-group-item d-flex flex-column" v-if="!quotes">
+                                Loading
+                            </li>
+                            <li class="list-group-item d-flex flex-column" v-else-if="!quotes.length">
+                                Empty
+                            </li>
+                            <li class="list-group-item d-flex flex-column" v-else v-for="(quote, id) in quotes">
                                 {{ quote.quote }}
                                 <button @click="removeFromFavourites($event, quote.id);" type="button" class="btn btn-danger btn-sm">Delete</button>
                             </li>
@@ -61,8 +67,6 @@ export default {
                 ev.target.classList.toggle("btn-secondary");
 
                 const filteredList = this.quotes.filter((q) => q.id !== id).map((q) => { return q});
-
-                console.log('filteredList', filteredList);
 
                 this.quotes = filteredList;
             }).catch(({response})=>{

@@ -8,7 +8,13 @@
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
-                            <li class="list-group-item d-flex flex-column" v-for="quote in quotes">
+                            <li class="list-group-item d-flex flex-column" v-if="!quotes">
+                                Loading
+                            </li>
+                            <li class="list-group-item d-flex flex-column" v-else-if="!quotes.length">
+                                Empty
+                            </li>
+                            <li class="list-group-item d-flex flex-column" v-else v-for="quote in quotes" :key="quote">
                                 {{ quote }}
                                 <button @click="addToFavourites($event, quote)" type="button" class="btn btn-primary btn-sm">Add to Favourites</button>
                             </li>
@@ -24,6 +30,9 @@
     </div>
 </template>
 <script>
+
+import { useToast } from "vue-toastification";
+
 export default {
     name:"dashboard",
     data(){
@@ -32,6 +41,11 @@ export default {
             quotes:[],
             processing:false,
         }
+    },
+    setup() {
+      const toast = useToast();
+
+      return { toast }
     },
     methods: {
         async getQuotes(ev = false){
@@ -47,9 +61,9 @@ export default {
             await axios.get('/api/quotes/5').then(response=>{
                 this.quotes = response.data
 
-                ev.target.innerHTML = 'Refresh';
-                ev.target.classList.toggle("btn-primary");
-                ev.target.classList.toggle("btn-secondary");
+                const filteredList = this.quotes.filter((q) => q.id !== id).map((q) => { return q});
+
+                this.quotes = filteredList;
             }).catch(({response})=>{
                 if(response.status===422){
                     this.validationErrors = response.data.errors
@@ -70,9 +84,15 @@ export default {
 
             await axios.get('/sanctum/csrf-cookie')
             await axios.post('/api/quotes/add_to_fav', {'quote' : quote}).then(response=>{
-                ev.target.innerHTML = 'Added to Favourites';
-                ev.target.classList.toggle("btn-secondary");
-                ev.target.classList.toggle("btn-success");
+                
+
+                this.toast.success("Quote Added!", {
+                    timeout: 5000
+                });
+
+                const filteredList = this.quotes.filter((q) => q !== quote).map((q) => { return q});
+
+                this.quotes = filteredList;
             }).catch(({response})=>{
                 if(response.status===422){
                     this.validationErrors = response.data.errors

@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class ApiProfileController extends Controller
+class ApiUserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:user list', ['only' => ['index']]);
+        $this->middleware('can:user delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        return $request->user()->only(['name', 'email']);
+        return User::with('quotes')->where('id', '!=', auth()->user()->id)->get();
     }
 
     /**
@@ -49,7 +52,7 @@ class ApiProfileController extends Controller
      */
     public function show($id)
     {
-        return auth()->user()->isSuperAdmin() || $id == auth()->user()->id ? User::find($id)->only(['name', 'email']) : abort(403, 'Unauthorized action.');
+        //
     }
 
     /**
@@ -66,16 +69,13 @@ class ApiProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\UpdateProfileRequest  $request
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfileRequest $request)
+    public function update(Request $request, $id)
     {
-        return auth()->user()->isSuperAdmin() || request()->id == auth()->user()->id ? User::find(request()->id)->update([
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'password'  => $request->password ? Hash::make($request->password) : $request->user()->password,
-        ]) : abort(403, 'Unauthorized action.');
+        //
     }
 
     /**
@@ -86,6 +86,6 @@ class ApiProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return User::find($id)->delete();
     }
 }

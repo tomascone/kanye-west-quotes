@@ -3,8 +3,9 @@ import store from '@/store'
 /* Guest Component */
 const Login = () => import('@/components/Login.vue')
 const Register = () => import('@/components/Register.vue')
-const UpdateProfile = () => import('@/components/updateProfile.vue')
+const UpdateProfileUser = () => import('@/components/UpdateProfileUser.vue')
 const FavouritesQuotes = () => import('@/components/FavouritesQuotes.vue')
+const Users = () => import('@/components/Users.vue')
 /* Guest Component */
 /* Layouts */
 const DahboardLayout = () => import('@/components/layouts/Default.vue')
@@ -47,19 +48,27 @@ const routes = [
                 }
             },
             {
-                name: "updateProfile",
-                path: '/update-profile',
-                component: UpdateProfile,
-                meta: {
-                    title: `Update Profile`
-                }
-            },
-            {
                 name: "favouritesQuotes",
                 path: '/favourites-quotes',
                 component: FavouritesQuotes,
                 meta: {
                     title: `Favourites Quotes`
+                }
+            },
+            {
+                name: "users",
+                path: '/users',
+                component: Users,
+                meta: {
+                    title: `Users`
+                }
+            },
+            {
+                name: "updateProfileUser",
+                path: '/update-profile-:id',
+                component: UpdateProfileUser,
+                meta: {
+                    title: `Update Profile`
                 }
             }
         ]

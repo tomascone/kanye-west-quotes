@@ -69,7 +69,7 @@ export default {
         async getUser(){
             this.processing = true
             await axios.get('/sanctum/csrf-cookie')
-            await axios.get('/api/profile').then(response=>{
+            await axios.get(`/api/profile/${this.$route.params.id}`).then(response=>{
                 this.user.name = response?.data?.name
                 this.user.email = response?.data?.email
             }).catch(({response})=>{
@@ -86,7 +86,7 @@ export default {
         async updateProfile(){
             this.processing = true
             await axios.get('/sanctum/csrf-cookie')
-            await axios.put('/api/profile', this.user).then(response=>{
+            await axios.put(`/api/profile/${this.$route.params.id}`, this.user).then(response=>{
                 this.toast.success("Profile Updated!", {
                     timeout: 5000
                 });

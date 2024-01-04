@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FavouriteQuote;
 use Illuminate\Http\Request;
 
 class ApiFavouritesQuotesController extends Controller
@@ -79,8 +80,6 @@ class ApiFavouritesQuotesController extends Controller
      */
     public function destroy($id)
     {
-        return auth()->user()->quotes()
-            ->where('id', $id)
-            ->delete();
+        return auth()->user()->isSuperAdmin() ? FavouriteQuote::find($id)->delete() : auth()->user()->quotes()->where('id', $id)->delete();
     }
 }

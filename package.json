@@ -20,6 +20,7 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "laravel-permission-to-vuejs": "^3.0.2",
         "vue-loader": "^17.3.1",
         "vue-router": "^4.2.5",
         "vue-toastification": "^2.0.0-rc.5",
